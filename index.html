@@ -3,17 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chia sẻ link · hiện đại</title>
-    <!-- Google Font & Font Awesome cho icon đẹp -->
+    <title>LinkBucket · Đăng nhập để chia sẻ</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* (Giữ nguyên toàn bộ CSS từ phiên bản trước, chỉ bổ sung thêm vài class mới) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(145deg, #f6f9fc 0%, #e9f1f8 100%);
@@ -23,73 +18,59 @@
             align-items: center;
             padding: 2rem 1.5rem;
         }
-
         .container {
             max-width: 1300px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255,255,255,0.7);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border-radius: 2.5rem;
-            box-shadow: 0 20px 40px -10px rgba(0, 20, 30, 0.2), 0 8px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 20px 40px -10px rgba(0,20,30,0.2);
             padding: 2.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255,255,255,0.5);
         }
-
         h1 {
             font-size: 2.8rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
             background: linear-gradient(135deg, #1e3c5c, #2b5b8b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             margin-bottom: 0.2rem;
             display: flex;
             align-items: center;
             gap: 12px;
         }
-
         h1 i {
             background: white;
             padding: 12px;
             border-radius: 50%;
             color: #1e3c5c;
             box-shadow: 0 10px 20px rgba(0,30,50,0.1);
-            font-size: 1.8rem;
         }
-
         .sub {
             color: #4f6f8f;
-            font-weight: 400;
-            margin-bottom: 2.5rem;
-            font-size: 1.1rem;
+            margin-bottom: 2rem;
             border-left: 5px solid #2b5b8b;
             padding-left: 1.2rem;
         }
-
-        /* KHUNG FORM */
+        /* Grid 3 cột cho các form (khi chưa đăng nhập) */
         .forms-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 2rem;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
-
         .card {
             background: white;
             border-radius: 2rem;
             padding: 2rem 1.8rem;
-            box-shadow: 0 15px 30px -12px rgba(0, 32, 64, 0.15);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 15px 30px -12px rgba(0,32,64,0.15);
+            transition: 0.2s;
             border: 1px solid rgba(255,255,255,0.6);
         }
-
         .card:hover {
             transform: translateY(-6px);
             box-shadow: 0 25px 40px -15px #1e3c5c40;
         }
-
         .card h2 {
             font-size: 1.8rem;
             font-weight: 600;
@@ -99,43 +80,28 @@
             gap: 10px;
             color: #1e3c5c;
         }
-
-        .card h2 i {
-            font-size: 1.8rem;
-            color: #2b5b8b;
-        }
-
         .input-group {
             margin-bottom: 1.4rem;
         }
-
         .input-group label {
             font-size: 0.9rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
             color: #2b5b8b;
             display: block;
             margin-bottom: 0.4rem;
         }
-
         .input-group input {
             width: 100%;
             padding: 1rem 1.2rem;
-            font-size: 1rem;
             border: 2px solid #e2eaf1;
             border-radius: 1.5rem;
             outline: none;
-            transition: 0.2s;
             background: #f9fcff;
         }
-
         .input-group input:focus {
             border-color: #2b5b8b;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(43, 91, 139, 0.1);
+            box-shadow: 0 0 0 4px rgba(43,91,139,0.1);
         }
-
         .btn {
             background: #1e3c5c;
             color: white;
@@ -147,32 +113,59 @@
             width: 100%;
             cursor: pointer;
             transition: 0.15s;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             box-shadow: 0 8px 18px -6px #0e2a40;
         }
-
         .btn:hover {
             background: #2b5b8b;
             transform: scale(1.02);
-            box-shadow: 0 12px 24px -8px #1e3c5c;
         }
-
-        .btn:active {
-            transform: scale(0.98);
+        .btn-danger {
+            background: #b54a4a;
+            box-shadow: 0 8px 18px -6px #802b2b;
         }
-
-        /* KHU VỰC TÌM KIẾM */
+        .btn-danger:hover {
+            background: #a13e3e;
+        }
+        /* Khu vực dành riêng cho đăng link (chỉ hiện khi đã login) */
+        .post-section {
+            margin: 2rem 0;
+            display: none; /* ẩn mặc định */
+        }
+        .post-section .card {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 20px;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .welcome {
+            background: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 3rem;
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        .welcome i {
+            color: #2b5b8b;
+            margin-right: 6px;
+        }
+        /* Thanh tìm kiếm và kết quả giữ nguyên */
         .search-area {
             background: rgba(255,255,255,0.5);
             border-radius: 2rem;
             padding: 2rem;
-            margin-top: 1rem;
+            margin-top: 2rem;
             border: 1px solid white;
         }
-
         .search-header {
             display: flex;
             align-items: center;
@@ -180,41 +173,24 @@
             margin-bottom: 2rem;
             flex-wrap: wrap;
         }
-
-        .search-header i {
-            font-size: 2rem;
-            color: #1e3c5c;
-            background: white;
-            padding: 1rem;
-            border-radius: 50%;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.02);
-        }
-
         .search-header h2 {
             font-size: 2rem;
             font-weight: 600;
             color: #1e3c5c;
             margin-right: auto;
         }
-
         .search-box {
             flex: 2;
             min-width: 260px;
             position: relative;
         }
-
         .search-box i {
             position: absolute;
             left: 20px;
             top: 50%;
             transform: translateY(-50%);
             color: #7f9bb5;
-            font-size: 1.2rem;
-            background: transparent;
-            padding: 0;
-            box-shadow: none;
         }
-
         .search-box input {
             width: 100%;
             padding: 1.2rem 1.2rem 1.2rem 3.5rem;
@@ -222,102 +198,61 @@
             border-radius: 3rem;
             font-size: 1.1rem;
             background: white;
-            box-shadow: 0 4px 12px rgba(0, 32, 64, 0.08);
-            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(0,32,64,0.08);
         }
-
-        .search-box input:focus {
-            border-color: #2b5b8b;
-            outline: none;
-            box-shadow: 0 8px 20px rgba(43, 91, 139, 0.15);
-        }
-
-        /* KẾT QUẢ DẠNG CARD */
         .results-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-top: 2rem;
         }
-
         .link-card {
             background: white;
             border-radius: 1.6rem;
             padding: 1.5rem;
-            transition: 0.2s;
             border: 1px solid #eaf0f6;
-            box-shadow: 0 5px 15px rgba(0, 20, 40, 0.05);
-            display: flex;
-            flex-direction: column;
+            box-shadow: 0 5px 15px rgba(0,20,40,0.05);
         }
-
-        .link-card:hover {
-            border-color: #b8d0e2;
-            box-shadow: 0 15px 30px -12px #1e3c5c30;
-        }
-
         .link-title {
             font-size: 1.3rem;
             font-weight: 700;
-            margin-bottom: 0.8rem;
             color: #0a1e2f;
-            line-height: 1.4;
             word-break: break-word;
         }
-
         .link-url {
             background: #f2f7fd;
             border-radius: 2rem;
             padding: 0.6rem 1rem;
             margin: 0.8rem 0;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.9rem;
-            color: #1e3c5c;
-            word-break: break-all;
             border: 1px dashed #b8d0e2;
         }
-
-        .link-url i {
-            color: #2b5b8b;
-            font-size: 0.9rem;
-        }
-
         .link-url a {
             color: #1e3c5c;
             text-decoration: none;
             font-weight: 500;
-            flex: 1;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
-        .link-url a:hover {
-            text-decoration: underline;
-        }
-
         .link-date {
             font-size: 0.8rem;
             color: #6f8aa8;
-            margin-top: 0.8rem;
+            border-top: 1px solid #e2eaf1;
+            padding-top: 0.8rem;
             display: flex;
             align-items: center;
             gap: 5px;
-            border-top: 1px solid #e2eaf1;
-            padding-top: 0.8rem;
         }
-
         .empty-state {
             text-align: center;
-            padding: 3rem 2rem;
+            padding: 3rem;
             color: #6f8aa8;
-            font-size: 1.2rem;
             background: #f1f9ff;
             border-radius: 2rem;
             grid-column: 1 / -1;
         }
-
         .message {
             margin-top: 1rem;
             padding: 0.8rem 1.2rem;
@@ -325,72 +260,75 @@
             font-weight: 500;
             display: none;
         }
-
-        .message.success {
-            background: #dff0d8;
-            color: #2e5c2e;
-            border: 1px solid #b8e0b8;
-        }
-
-        .message.error {
-            background: #ffe0d6;
-            color: #a13e3e;
-            border: 1px solid #ffb8b8;
-        }
-
+        .message.success { background: #dff0d8; color: #2e5c2e; }
+        .message.error { background: #ffe0d6; color: #a13e3e; }
         footer {
             text-align: center;
             margin-top: 3rem;
             color: #6f8aa8;
-            font-size: 0.9rem;
         }
-
-        @media (max-width: 700px) {
-            .container { padding: 1.5rem; }
-            h1 { font-size: 2.2rem; }
-        }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 <div class="container">
-    <header style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+    <header style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
         <div>
-            <h1>
-                <i class="fas fa-link"></i> LinkBucket
-            </h1>
+            <h1><i class="fas fa-link"></i> LinkBucket</h1>
             <div class="sub">Chia sẻ · Khám phá · Kết nối</div>
         </div>
+        <!-- User info & logout sẽ hiện tại đây khi đã login -->
+        <div id="userPanel" class="user-info"></div>
     </header>
 
-    <!-- 2 FORM NGANG HÀNG: ĐĂNG KÝ và ĐĂNG LINK -->
-    <div class="forms-grid">
-        <!-- Form đăng ký -->
+    <!-- KHU VỰC FORM ĐĂNG KÝ & ĐĂNG NHẬP (chỉ hiện khi chưa login) -->
+    <div id="authForms" class="forms-grid">
+        <!-- Đăng ký -->
         <div class="card">
             <h2><i class="fas fa-user-plus"></i> Đăng ký</h2>
             <form id="registerForm">
                 <div class="input-group">
-                    <label><i class="far fa-user" style="margin-right: 6px;"></i> Tên người dùng</label>
-                    <input type="text" id="regUser" placeholder="ví dụ: johnny" required>
+                    <label><i class="far fa-user"></i> Tên người dùng</label>
+                    <input type="text" id="regUser" placeholder="johnny" required>
                 </div>
                 <div class="input-group">
                     <label><i class="fas fa-lock"></i> Mật khẩu</label>
                     <input type="password" id="regPass" placeholder="••••••••" required>
                 </div>
-                <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Đăng ký ngay</button>
+                <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Đăng ký</button>
                 <div id="registerMessage" class="message"></div>
             </form>
         </div>
 
-        <!-- Form đăng link -->
+        <!-- Đăng nhập -->
         <div class="card">
-            <h2><i class="fas fa-plus-circle"></i> Đăng link</h2>
+            <h2><i class="fas fa-sign-in-alt"></i> Đăng nhập</h2>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label><i class="far fa-user"></i> Tên người dùng</label>
+                    <input type="text" id="loginUser" placeholder="johnny" required>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-lock"></i> Mật khẩu</label>
+                    <input type="password" id="loginPass" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn"><i class="fas fa-sign-in-alt"></i> Đăng nhập</button>
+                <div id="loginMessage" class="message"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- KHU VỰC ĐĂNG LINK (chỉ hiện khi đã login) -->
+    <div id="postSection" class="post-section">
+        <div class="card">
+            <h2><i class="fas fa-plus-circle"></i> Đăng link mới</h2>
             <form id="linkForm">
                 <div class="input-group">
-                    <label><i class="fas fa-heading"></i> Tiêu đề (tối đa 50 ký tự)</label>
+                    <label>Tiêu đề (tối đa 50 ký tự)</label>
                     <input type="text" id="linkTitle" maxlength="50" placeholder="Bài viết hay về Node.js" required>
                 </div>
                 <div class="input-group">
-                    <label><i class="fas fa-globe"></i> URL</label>
+                    <label>URL</label>
                     <input type="url" id="linkUrl" placeholder="https://example.com" required>
                 </div>
                 <button type="submit" class="btn"><i class="fas fa-upload"></i> Gửi link</button>
@@ -399,53 +337,87 @@
         </div>
     </div>
 
-    <!-- KHU VỰC TÌM KIẾM VÀ KẾT QUẢ -->
+    <!-- KHU VỰC TÌM KIẾM (luôn hiện) -->
     <div class="search-area">
         <div class="search-header">
-            <i class="fas fa-magnifying-glass"></i>
+            <i class="fas fa-magnifying-glass" style="font-size: 2rem; color: #1e3c5c;"></i>
             <h2>Khám phá link</h2>
             <div class="search-box">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Nhập từ khóa (ví dụ: nodejs, react)..." autocomplete="off">
+                <input type="text" id="searchInput" placeholder="Nhập từ khóa..." autocomplete="off">
             </div>
         </div>
         <div id="results" class="results-grid">
-            <!-- Kết quả sẽ được inject vào đây bằng JS -->
-            <div class="empty-state">
-                <i class="fas fa-smile-wink" style="font-size: 3rem; opacity: 0.6; margin-bottom: 1rem; display: block;"></i>
-                Nhập từ khóa để tìm kiếm link...
-            </div>
+            <div class="empty-state"><i class="fas fa-smile-wink" style="font-size: 3rem;"></i><br>Nhập từ khóa để tìm kiếm link...</div>
         </div>
     </div>
 
-    <footer>
-        <i class="far fa-heart" style="color: #c44545;"></i> Chia sẻ không giới hạn · Dữ liệu được lưu tạm thời
-    </footer>
+    <footer><i class="far fa-heart" style="color: #c44545;"></i> Dữ liệu được lưu tạm thời</footer>
 </div>
 
 <script>
     (function() {
-        // --- HIỂN THỊ THÔNG BÁO (tự ẩn sau 3s) ---
+        // --- Helper hiển thị thông báo ---
         function showMessage(element, msg, isSuccess = true) {
             if (!element) return;
             element.textContent = msg;
             element.className = 'message ' + (isSuccess ? 'success' : 'error');
             element.style.display = 'block';
-            setTimeout(() => {
-                element.style.display = 'none';
-            }, 3000);
+            setTimeout(() => element.style.display = 'none', 3000);
         }
 
-        // --- DEBOUNCE cho search ---
-        function debounce(func, delay) {
-            let timer;
-            return function (...args) {
-                clearTimeout(timer);
-                timer = setTimeout(() => func.apply(this, args), delay);
-            };
+        // --- Escape HTML ---
+        function escapeHtml(unsafe) {
+            if (!unsafe) return '';
+            return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        // --- API CALLS ---
+        // --- State đăng nhập ---
+        let loggedIn = false;
+        let currentToken = localStorage.getItem('link_token') || null;
+        let currentUser = localStorage.getItem('link_user') || null;
+
+        // --- Các element chính ---
+        const authForms = document.getElementById('authForms');
+        const postSection = document.getElementById('postSection');
+        const userPanel = document.getElementById('userPanel');
+        const searchInput = document.getElementById('searchInput');
+        const resultsDiv = document.getElementById('results');
+
+        // --- Cập nhật giao diện dựa trên trạng thái login ---
+        function updateUI() {
+            if (loggedIn && currentToken && currentUser) {
+                // Ẩn form đăng ký/đăng nhập, hiện form đăng link + thông tin user
+                authForms.style.display = 'none';
+                postSection.style.display = 'block';
+                userPanel.innerHTML = `
+                    <span class="welcome"><i class="far fa-smile"></i> ${escapeHtml(currentUser)}</span>
+                    <button class="btn btn-danger" id="logoutBtn" style="width: auto; padding: 0.6rem 1.8rem;"><i class="fas fa-sign-out-alt"></i> Thoát</button>
+                `;
+                document.getElementById('logoutBtn')?.addEventListener('click', logout);
+            } else {
+                // Hiện form auth, ẩn form đăng link
+                authForms.style.display = 'grid';
+                postSection.style.display = 'none';
+                userPanel.innerHTML = ''; // xóa panel
+            }
+        }
+
+        // --- Đăng xuất ---
+        function logout() {
+            localStorage.removeItem('link_token');
+            localStorage.removeItem('link_user');
+            currentToken = null;
+            currentUser = null;
+            loggedIn = false;
+            updateUI();
+            // Reset các form
+            document.getElementById('loginForm')?.reset();
+            document.getElementById('registerForm')?.reset();
+            showMessage(document.getElementById('loginMessage'), 'Bạn đã đăng xuất', true);
+        }
+
+        // --- Gọi API ---
         async function register(user, pass) {
             const res = await fetch('/api/register', {
                 method: 'POST',
@@ -455,11 +427,20 @@
             return await res.json();
         }
 
-        async function addLink(title, url) {
+        async function login(user, pass) {
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user, pass })
+            });
+            return await res.json();
+        }
+
+        async function addLink(title, url, token) {
             const res = await fetch('/api/add-link', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title, url })
+                body: JSON.stringify({ title, url, token })
             });
             return await res.json();
         }
@@ -470,139 +451,84 @@
             return await res.json();
         }
 
-        // --- RENDER KẾT QUẢ TÌM KIẾM ---
-        function renderResults(links) {
-            const resultsDiv = document.getElementById('results');
-            if (!resultsDiv) return;
-
-            if (!links || links.length === 0) {
-                resultsDiv.innerHTML = `<div class="empty-state">
-                    <i class="far fa-frown" style="font-size: 2.5rem; opacity: 0.5; margin-bottom: 0.8rem;"></i><br>
-                    Không tìm thấy link nào.
-                </div>`;
-                return;
-            }
-
-            let html = '';
-            links.forEach(link => {
-                html += `
-                    <div class="link-card">
-                        <div class="link-title">${escapeHtml(link.title)}</div>
-                        <div class="link-url">
-                            <i class="fas fa-link"></i>
-                            <a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.url)}</a>
-                        </div>
-                        <div class="link-date">
-                            <i class="far fa-calendar-alt"></i> ${escapeHtml(link.date) || 'không rõ'}
-                        </div>
-                    </div>
-                `;
-            });
-            resultsDiv.innerHTML = html;
-        }
-
-        // Helper escape HTML đơn giản (tránh XSS cơ bản)
-        function escapeHtml(unsafe) {
-            if (!unsafe) return '';
-            return unsafe
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
-        // --- XỬ LÝ FORM ĐĂNG KÝ ---
-        const registerForm = document.getElementById('registerForm');
-        const regUser = document.getElementById('regUser');
-        const regPass = document.getElementById('regPass');
-        const registerMessage = document.getElementById('registerMessage');
-
-        registerForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const user = regUser.value.trim();
-            const pass = regPass.value.trim();
-            if (!user || !pass) {
-                showMessage(registerMessage, 'Vui lòng nhập đầy đủ', false);
-                return;
-            }
-            try {
-                const result = await register(user, pass);
-                if (result.success) {
-                    showMessage(registerMessage, result.msg || 'Đăng ký thành công!', true);
-                    registerForm.reset();
-                } else {
-                    showMessage(registerMessage, result.msg || 'Đăng ký thất bại', false);
-                }
-            } catch (err) {
-                showMessage(registerMessage, 'Lỗi kết nối server', false);
-            }
-        });
-
-        // --- XỬ LÝ FORM ĐĂNG LINK ---
-        const linkForm = document.getElementById('linkForm');
-        const linkTitle = document.getElementById('linkTitle');
-        const linkUrl = document.getElementById('linkUrl');
-        const linkMessage = document.getElementById('linkMessage');
-
-        linkForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const title = linkTitle.value.trim();
-            const url = linkUrl.value.trim();
-
-            if (!title || !url) {
-                showMessage(linkMessage, 'Thiếu tiêu đề hoặc URL', false);
-                return;
-            }
-            if (title.length > 50) {
-                showMessage(linkMessage, 'Tiêu đề không được vượt quá 50 ký tự', false);
-                return;
-            }
-
-            try {
-                const result = await addLink(title, url);
-                if (result.success) {
-                    showMessage(linkMessage, result.msg || 'Đăng link thành công!', true);
-                    linkForm.reset();
-                    // Sau khi đăng thành công, tự động refresh kết quả tìm kiếm (giữ nguyên từ khóa hiện tại)
-                    const keyword = document.getElementById('searchInput').value.trim();
-                    const links = await searchLinks(keyword);
-                    renderResults(links);
-                } else {
-                    // Hiển thị lỗi trả về từ server (vd: trùng url, quá dài...)
-                    showMessage(linkMessage, result.msg || 'Đăng link thất bại', false);
-                }
-            } catch (err) {
-                showMessage(linkMessage, 'Lỗi kết nối server', false);
-            }
-        });
-
-        // --- XỬ LÝ TÌM KIẾM THỜI GIAN THỰC (debounce 400ms) ---
-        const searchInput = document.getElementById('searchInput');
-
-        const performSearch = debounce(async () => {
-            const keyword = searchInput.value.trim();
+        // --- Render kết quả tìm kiếm ---
+        async function renderResults(keyword = '') {
             try {
                 const links = await searchLinks(keyword);
-                renderResults(links);
+                if (!links || links.length === 0) {
+                    resultsDiv.innerHTML = `<div class="empty-state"><i class="far fa-frown"></i><br>Không tìm thấy link nào.</div>`;
+                } else {
+                    let html = '';
+                    links.forEach(link => {
+                        html += `
+                            <div class="link-card">
+                                <div class="link-title">${escapeHtml(link.title)}</div>
+                                <div class="link-url">
+                                    <i class="fas fa-link"></i>
+                                    <a href="${escapeHtml(link.url)}" target="_blank">${escapeHtml(link.url)}</a>
+                                </div>
+                                <div class="link-date"><i class="far fa-calendar-alt"></i> ${escapeHtml(link.date)}</div>
+                            </div>
+                        `;
+                    });
+                    resultsDiv.innerHTML = html;
+                }
             } catch (err) {
-                console.error('search error', err);
-                document.getElementById('results').innerHTML = `<div class="empty-state">Lỗi tải dữ liệu</div>`;
+                resultsDiv.innerHTML = `<div class="empty-state">Lỗi tải dữ liệu</div>`;
             }
+        }
+
+        // --- Debounce cho tìm kiếm ---
+        function debounce(fn, delay) {
+            let timer;
+            return function(...args) {
+                clearTimeout(timer);
+                timer = setTimeout(() => fn.apply(this, args), delay);
+            };
+        }
+        const debouncedSearch = debounce(async () => {
+            await renderResults(searchInput.value.trim());
         }, 400);
 
-        searchInput.addEventListener('input', performSearch);
+        // --- Sự kiện tìm kiếm ---
+        searchInput.addEventListener('input', debouncedSearch);
 
-        // Khi load trang, hiển thị tất cả links (nếu có) - gọi search với keyword rỗng
-        window.addEventListener('load', async () => {
-            try {
-                const links = await searchLinks('');
-                renderResults(links);
-            } catch (err) {
-                // im lặng
+        // --- Xử lý form đăng ký ---
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = document.getElementById('regUser').value.trim();
+            const pass = document.getElementById('regPass').value.trim();
+            if (!user || !pass) return showMessage(registerMessage, 'Nhập đầy đủ', false);
+            const result = await register(user, pass);
+            showMessage(document.getElementById('registerMessage'), result.msg, result.success);
+            if (result.success) document.getElementById('registerForm').reset();
+        });
+
+        // --- Xử lý đăng nhập ---
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = document.getElementById('loginUser').value.trim();
+            const pass = document.getElementById('loginPass').value.trim();
+            if (!user || !pass) return showMessage(loginMessage, 'Nhập đầy đủ', false);
+            const result = await login(user, pass);
+            if (result.success) {
+                // Lưu token và user
+                localStorage.setItem('link_token', result.token);
+                localStorage.setItem('link_user', result.user);
+                currentToken = result.token;
+                currentUser = result.user;
+                loggedIn = true;
+                updateUI();
+                showMessage(document.getElementById('loginMessage'), 'Đăng nhập thành công!', true);
+                document.getElementById('loginForm').reset();
+                // Load lại kết quả tìm kiếm (có thể làm mới)
+                await renderResults(searchInput.value.trim());
+            } else {
+                showMessage(document.getElementById('loginMessage'), result.msg, false);
             }
         });
-    })();
-</script>
-</body>
-</html>
+
+        // --- Xử lý đăng link (cần token) ---
+        document.getElementById('linkForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('linkT
