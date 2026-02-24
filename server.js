@@ -1,67 +1,53 @@
 const express = require('express');
+const { createClient } = require('@supabase/supabase-js');
 const app = express();
-const crypto = require('crypto');
 
-let users = [];       // { user, pass, token }
-let links = [];
+// --- THÔNG TIN KẾT NỐI SUPABASE CỦA BẠN ---
+const SUPABASE_URL = 'https://okmbzndituubcsambxrx.supabase.co';
+const SUPABASE_KEY = 'sb_secret_mTTn7heVIQ_egTy8AlK11w_QLiUsnTB'; 
+// ---------------------------------------
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 app.use(express.json());
-app.use(express.static('.'));   // phục vụ file index.html
+app.use(express.static('.'));
 
-// Tạo token ngẫu nhiên
-function generateToken() {
-    return crypto.randomBytes(16).toString('hex');
-}
-
-// ĐĂNG KÝ
-app.post('/api/register', (req, res) => {
+// API Đăng ký & Đăng nhập (Lưu vào bảng profiles)
+app.post('/api/auth', async (req, res) => {
     const { user, pass } = req.body;
-    if (!user || !pass) return res.json({ success: false, msg: 'Thiếu thông tin' });
-
-    // Kiểm tra tên đã tồn tại chưa
-    if (users.find(u => u.user === user)) {
-        return res.json({ success: false, msg: 'Tên người dùng đã tồn tại' });
+    const { data: existing } = await supabase.from('profiles').select('*').eq('user', user).single();
+    
+    if (existing) {
+        if (existing.pass === pass) return res.json({ s: true, m: "Đăng nhập thành công" });
+        return res.json({ s: false, m: "Sai mật khẩu!" });
     }
-
-    users.push({ user, pass }); // chưa có token
-    res.json({ success: true, msg: 'Đăng ký thành công, hãy đăng nhập' });
+    
+    const { error } = await supabase.from('profiles').insert([{ user, pass }]);
+    if (error) return res.json({ s: false, m: "Lỗi đăng ký" });
+    res.json({ s: true, m: "Đăng ký thành công" });
 });
 
-// ĐĂNG NHẬP
-app.post('/api/login', (req, res) => {
-    const { user, pass } = req.body;
-    const found = users.find(u => u.user === user && u.pass === pass);
-    if (!found) {
-        return res.json({ success: false, msg: 'Sai tên hoặc mật khẩu' });
-    }
-    // Tạo mới token mỗi lần đăng nhập
-    const token = generateToken();
-    found.token = token;
-    res.json({ success: true, token, user: found.user });
+// API Đăng link (Lưu vào bảng links)
+app.post('/api/add-link', async (req, res) => {
+    const { title, url, user, pass } = req.body;
+    // Kiểm tra tài khoản trước khi cho đăng link
+    const { data: userDB } = await supabase.from('profiles').select('*').eq('user', user).eq('pass', pass).single();
+    
+    if (!userDB) return res.json({ s: false, m: "Lỗi xác thực tài khoản!" });
+
+    const { error } = await supabase.from('links').insert([{ title, url, user }]);
+    if (error) return res.json({ s: false, m: "Lỗi lưu link" });
+    res.json({ s: true });
 });
 
-// ĐĂNG LINK (cần token)
-app.post('/api/add-link', (req, res) => {
-    const { title, url, token } = req.body;
-    const user = users.find(u => u.token === token);
-    if (!user) {
-        return res.json({ success: false, msg: 'Vui lòng đăng nhập lại' });
-    }
-    if (!title || !url) return res.json({ success: false, msg: 'Thiếu tiêu đề hoặc URL' });
-    if (title.length > 50) return res.json({ success: false, msg: 'Tiêu đề quá 50 ký tự' });
-    if (links.some(l => l.url.toLowerCase() === url.toLowerCase())) {
-        return res.json({ success: false, msg: 'URL đã tồn tại' });
-    }
-    links.push({ title, url, date: new Date().toLocaleString(), postedBy: user.user });
-    res.json({ success: true, msg: 'Đăng link thành công' });
+// API Lấy danh sách link để hiển thị
+app.get('/api/search', async (req, res) => {
+    const k = req.query.k || "";
+    const { data } = await supabase.from('links')
+        .select('*')
+        .ilike('title', `%${k}%`)
+        .order('id', { ascending: false });
+    res.json(data || []);
 });
 
-// TÌM KIẾM
-app.get('/api/search', (req, res) => {
-    const keyword = req.query.k?.toLowerCase() || '';
-    const filtered = links.filter(l => l.title.toLowerCase().includes(keyword));
-    res.json(filtered);
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server chạy tại http://localhost:${PORT}`));
+app.listen(process.env.PORT || 3000);
